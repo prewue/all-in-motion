@@ -1,0 +1,120 @@
+/* all-in-motion — motion tokens. Copy this file into the project once (before motion-springs.css)
+   and reference everything as var(--…). Names are semantic: pick by USAGE, never by nearest number.
+
+   Durations   --motion-*      what an action takes
+   Easings     --ease-*        the curve (cubic-bezier keywords + strong custom curves)
+   Springs     --spring-*      in motion-springs.css (generated linear() curves)
+   Distances   --move-*        how far something travels FROM before settling to 0
+   Scales      --scale-*       the pre-rest scale something animates FROM (or a hover target)
+   Blur        --blur-*        the pre-rest blur (settles to 0)
+   Stagger     --stagger-*     per-item offsets
+   Budgets     --motion-blur-scale, --motion-fold-perspective
+*/
+:root {
+  /* ── Durations (by usage) ─────────────────────────────────────── */
+  --motion-instant:    0ms;    /* keyboard-initiated actions, 100+/day actions: no animation */
+  --motion-stagger:    40ms;   /* per-item stagger offset */
+  --motion-micro:      80ms;   /* intent delay (tooltip), shake leg, path-draw delay, large stagger */
+  --motion-quick:      150ms;  /* button press, close of dropdown/modal, text swap, tooltip appear */
+  --motion-fast:       250ms;  /* open of dropdown/modal, icon swap, tabs slide, page slide, accordion */
+  --motion-medium:     350ms;  /* toast in, panel close, toggle travel, morph */
+  --motion-slow:       400ms;  /* panel open, skeleton reveal, input clear */
+  --motion-deliberate: 500ms;  /* drawer/sheet (iOS), success check, text reveal, badge appear, emphasis */
+  --motion-expressive: 800ms;  /* marketing / onboarding / first-run only */
+
+  /* ── Easings ──────────────────────────────────────────────────── */
+  /* Default for anything entering, exiting, opening, closing, sliding or resizing.
+     easeOutQuint. cubic-bezier(0.23, 1, 0.32, 1) is the same family; both are correct. */
+  --ease-out:            cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo:       cubic-bezier(0.16, 1, 0.3, 1);      /* faster start: spinning counters, big surfaces */
+  --ease-out-quart:      cubic-bezier(0.25, 1, 0.5, 1);      /* softer ease-out */
+  /* Something already on screen moving to a new place (carousel, tab indicator, reorder). */
+  --ease-in-out:         cubic-bezier(0.77, 0, 0.175, 1);
+  /* Cross-fades and in-place swaps (icon swap, text swap, skeleton reveal). Plain keyword is right here. */
+  --ease-swap:           ease-in-out;
+  /* Native iOS sheet / drawer curve. Pair with --motion-deliberate. */
+  --ease-drawer:         cubic-bezier(0.32, 0.72, 0, 1);
+  /* Hover colour / fill. The built-in keyword is fine for colour. */
+  --ease-hover:          ease;
+  /* Constant motion: shimmer, marquee, progress fills, spinners, hold-to-confirm fill. */
+  --ease-linear:         linear;
+  /* Pure exits that fade away (unfold-out, badge close). The ONLY sanctioned ease-in. */
+  --ease-exit:           cubic-bezier(0.4, 0, 1, 1);
+  /* Entrance pops: badge, number pop-in, like heart. Never on a close. */
+  --ease-bounce:         cubic-bezier(0.34, 1.36, 0.64, 1);
+  /* Hover-OUT return (avatar group settle). The one place the out is springier than the in. */
+  --ease-bounce-strong:  cubic-bezier(0.34, 3.85, 0.64, 1);
+  /* Playful overshoot: kids apps, celebration, marketing. Not on utility UI. */
+  --ease-overshoot:      cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Material-style emphasized decelerate, for teams matching MD3. */
+  --ease-emphasized:     cubic-bezier(0.05, 0.7, 0.1, 1);
+
+  /* ── Distances (pre-rest translate, settles to 0) ─────────────── */
+  --move-micro:   4px;   /* text swap */
+  --move-small:   6px;   /* error shake leg, digit roll (7px) */
+  --move-base:    8px;   /* badge slide, page slide, list item stagger, dropdown lift */
+  --move-medium:  12px;  /* text reveal, input clear fly */
+  --move-large:   30px;  /* success badge appear, banner rise (60px for stacks) */
+  /* Anything over ~40px on something that is not a full panel/drawer reads sluggish. */
+
+  /* ── Scales ───────────────────────────────────────────────────── */
+  --scale-press:       0.97;  /* :active on any pressable */
+  --scale-modal:       0.96;  /* modal open / close */
+  --scale-dropdown:    0.97;  /* dropdown / popover / toast open */
+  --scale-tooltip:     0.98;  /* tooltip open */
+  --scale-closing:     0.99;  /* dropdown close (barely moves) */
+  --scale-min-enter:   0.9;   /* never enter from below this; never from 0 */
+  --scale-hover-lift:  1.02;  /* card grow on hover */
+  --scale-hover-grow:  1.08;  /* pill / badge grow on hover (1.06 for chips) */
+  --scale-pop:         1.15;  /* press bounce peak */
+
+  /* ── Blur (pre-rest, settles to 0) ─────────────────────────────── */
+  --blur-small:   2px;   /* panel reveal, icon swap, text swap, skeleton reveal, toast, number pop-in, blur bridge */
+  --blur-medium:  3px;   /* page slide, text reveal, reel spin */
+  --blur-large:   8px;   /* success check, materialising element */
+  --blur-max:     14px;  /* fold transitions; never above ~20px (Safari cost) */
+
+  /* ── Stagger ──────────────────────────────────────────────────── */
+  --stagger-fast:   30ms;
+  --stagger-base:   40ms;   /* keep offset × count under ~300ms */
+  --stagger-slow:   80ms;   /* a few large items */
+
+  /* ── Budgets ──────────────────────────────────────────────────── */
+  --motion-blur-scale: 1;          /* 0.5 on heavy pages; 0 under reduced motion (below) */
+  --motion-fold-perspective: 600px; /* fold/unfold transitions */
+
+  /* ── Shadows that transition well (shadows over borders in light mode) ── */
+  --shadow-rest:
+    0 0 0 1px rgb(0 0 0 / 0.06),
+    0 1px 2px -1px rgb(0 0 0 / 0.06),
+    0 2px 4px 0 rgb(0 0 0 / 0.04);
+  --shadow-hover:
+    0 0 0 1px rgb(0 0 0 / 0.08),
+    0 1px 2px -1px rgb(0 0 0 / 0.08),
+    0 2px 4px 0 rgb(0 0 0 / 0.06),
+    0 8px 24px -8px rgb(0 0 0 / 0.12);
+  --shadow-float:
+    0 0 0 1px rgb(0 0 0 / 0.06),
+    0 2px 6px 0 rgb(0 0 0 / 0.05),
+    0 4px 42px 0 rgb(0 0 0 / 0.06);
+}
+
+/* Reduced motion: fewer and gentler, never zero. Blur and folds go away, durations shrink,
+   spring bounce collapses (see motion-springs.css). Components keep opacity/colour feedback. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-blur-scale: 0;
+    --motion-fold-perspective: none;
+    --motion-fast:       150ms;
+    --motion-medium:     150ms;
+    --motion-slow:       200ms;
+    --motion-deliberate: 200ms;
+    --motion-expressive: 200ms;
+    --ease-bounce:        var(--ease-out);
+    --ease-bounce-strong: var(--ease-out);
+    --ease-overshoot:     var(--ease-out);
+    --move-base:   0px;
+    --move-medium: 0px;
+    --move-large:  0px;
+  }
+}
