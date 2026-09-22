@@ -1,0 +1,14 @@
+{
+  "name": "prewue",
+  "owner": {
+    "name": "prewue",
+    "url": "https://github.com/prewue"
+  },
+  "plugins": [
+    {
+      "name": "all-in-motion",
+      "source": "./plugins/all-in-motion",
+      "description": "The complete knowledge base for UI motion: 79 drop-in recipes, 20 measured spring presets and one token scale, with review and audit workflows."
+    }
+  ]
+}

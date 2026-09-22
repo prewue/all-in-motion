@@ -1,0 +1,23 @@
+{
+  "name": "all-in-motion",
+  "displayName": "All-In-Motion",
+  "version": "1.0.0",
+  "description": "The complete knowledge base for UI motion: when to animate, which curve and duration, and the code to ship. 79 drop-in recipes, 20 measured spring presets, one token scale, zero dependencies.",
+  "author": {
+    "name": "prewue",
+    "url": "https://github.com/prewue"
+  },
+  "homepage": "https://github.com/prewue/all-in-motion",
+  "repository": "https://github.com/prewue/all-in-motion",
+  "license": "MIT",
+  "keywords": [
+    "animation",
+    "motion",
+    "micro-interactions",
+    "css",
+    "ui",
+    "design-system",
+    "accessibility",
+    "springs"
+  ]
+}
